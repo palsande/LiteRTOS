@@ -34,8 +34,8 @@ void RTOS::createTask(TaskFunction_t function, uint32_t taskId) {
     totalTasks++;
 }
 
-void RTOS::init() {
-    portInit();
+void RTOS::bspInit() {
+    hwInit();
 }
 
 void RTOS::start() {

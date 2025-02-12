@@ -21,7 +21,7 @@
 #ifndef PORT_H
 #define PORT_H
 
-void portInit();
+void hwInit();
 void portStartScheduler();
 void portTriggerContextSwitch();
 extern "C" void rtos_schedule_wrapper();

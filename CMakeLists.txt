@@ -23,6 +23,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/kernel
     ${CMAKE_SOURCE_DIR}/hal
     ${CMAKE_SOURCE_DIR}/platform/tm4c123gxl
+    ${CMAKE_SOURCE_DIR}/platform/tm4c123gxl_bsp/tivaware_c_series_2_1_4_178/inc
 )
 
 # Source files

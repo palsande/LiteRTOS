@@ -35,7 +35,7 @@ struct TaskControlBlock {
 
 class RTOS {
 public:
-    static void init();
+    static void bspInit();
     static void start();
     static void createTask(TaskFunction_t function, uint32_t taskId);
     static void schedule();

@@ -23,15 +23,6 @@
 #include "rtos.h"
 #include "tm4c123gh6pm.h"
 
-#if 0
-extern "C" void PendSV_Handler(void);
-
-// Wrapper function for calling from assembly
-extern "C" void rtos_schedule_wrapper() {
-    RTOS::schedule();
-}
-#endif
-
 void hwInit() {
     // Set PendSV to lowest priority (to ensure it runs only when needed)
     *(volatile uint32_t*)0xE000ED22 = 0xFF;
@@ -88,38 +79,3 @@ void hwInit() {
     //NVIC_PRI1_R  |= 0x000040000                         //priority 2
     UART0_CTL_R = UART_CTL_TXE | UART_CTL_RXE | UART_CTL_UARTEN; // enable TX, RX, and module
 }
-
-#if 0
-void portStartScheduler() {
-    // Start first task
-    __asm volatile (" SVC #0 "); // Supervisor Call to switch to first task
-}
-
-void portTriggerContextSwitch() {
-    *(volatile uint32_t*)0xE000ED04 = (1 << 28); // Set PendSV to trigger context switch
-}
-
-// Context Switch Handler
-__attribute__((naked)) void PendSV_Handler() {
-    __asm volatile (
-        "   MRS     R0, PSP         \n"  // Load Process Stack Pointer
-        "   STMDB   R0!, {R4-R11}    \n" // Save registers R4-R11
-        "   LDR     R1, =currentTask \n"
-        "   LDR     R1, [R1]         \n"
-        "   LDR     R2, =tcb         \n"
-        "   LDR     R1, [R2, R1, LSL #2] \n"
-        "   STR     R0, [R1]         \n"
-        
-        "   BL      rtos_schedule_wrapper   \n"
-        
-        "   LDR     R1, =currentTask \n"
-        "   LDR     R1, [R1]         \n"
-        "   LDR     R2, =tcb         \n"
-        "   LDR     R1, [R2, R1, LSL #2] \n"
-        "   LDR     R0, [R1]         \n"
-        "   LDMIA   R0!, {R4-R11}    \n"
-        "   MSR     PSP, R0         \n"
-        "   BX      LR              \n"
-    );
-}
-#endif

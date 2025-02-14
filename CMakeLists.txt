@@ -30,7 +30,7 @@ include_directories(
 set(SOURCES
     kernel/rtos.cpp
     hal/port.cpp
-    examples/main.cpp
+    application/main.cpp
     platform/tm4c123gxl/startup.s
 )
 
@@ -41,7 +41,7 @@ set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/platform/tm4c123gxl/linker.ld)
 add_executable(rtos-framework
     kernel/rtos.cpp
     hal/port.cpp
-    examples/main.cpp
+    application/main.cpp
     platform/tm4c123gxl/startup.s
 )
 

@@ -23,12 +23,14 @@
 #include "rtos.h"
 #include "tm4c123gh6pm.h"
 
+#if 0
 extern "C" void PendSV_Handler(void);
 
 // Wrapper function for calling from assembly
 extern "C" void rtos_schedule_wrapper() {
     RTOS::schedule();
 }
+#endif
 
 void hwInit() {
     // Set PendSV to lowest priority (to ensure it runs only when needed)
@@ -87,6 +89,7 @@ void hwInit() {
     UART0_CTL_R = UART_CTL_TXE | UART_CTL_RXE | UART_CTL_UARTEN; // enable TX, RX, and module
 }
 
+#if 0
 void portStartScheduler() {
     // Start first task
     __asm volatile (" SVC #0 "); // Supervisor Call to switch to first task
@@ -119,3 +122,4 @@ __attribute__((naked)) void PendSV_Handler() {
         "   BX      LR              \n"
     );
 }
+#endif

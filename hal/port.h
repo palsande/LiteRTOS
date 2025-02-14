@@ -22,7 +22,9 @@
 #define PORT_H
 
 void hwInit();
+#if 0
 void portStartScheduler();
 void portTriggerContextSwitch();
 extern "C" void rtos_schedule_wrapper();
+#endif
 #endif // PORT_H
